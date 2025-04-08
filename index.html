@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Data Plot</title>
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
+    <script defer src="./papaparse.min.js"></script> <!- LOCAL PAPAPARSE -->
     <style>
         body {
             font-family: sans-serif;
@@ -144,87 +144,6 @@
             } catch (error) {
                 console.error("Error fetching or parsing CSV:", error);
             }
-        }
-
-        function renderChart(labels, data, xTicksLimit, yTicksLimit) {
-            const ctx = chartCanvas.getContext('2d');
-            myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Players',
-                        data: data,
-                        borderColor: '#A0522D', // Sienna
-                        backgroundColor: 'rgba(160, 82, 45, 0.2)', // Sienna with some transparency
-                        borderWidth: 2,
-                        pointRadius: 0, // Remove data point circles
-                        tension: 0.3 // For smoother lines
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    backgroundColor: '#FDF5E6', // Old Lace for chart area
-                    scales: {
-                        x: {
-                            type: 'time',
-                            time: {
-                                unit: 'hour',
-                                displayFormats: {
-                                    hour: 'MM/DD HH:mm'
-                                }
-                            },
-                            ticks: {
-                                maxTicksLimit: xTicksLimit,
-                                color: '#5D4037' // Darker brown for ticks
-                            },
-                            grid: {
-                                color: '#D3CBB8', // Muted beige for grid
-                                drawBorder: false
-                            },
-                            title: {
-                                display: true,
-                                text: 'Time',
-                                color: '#5D4037'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                maxTicksLimit: yTicksLimit,
-                                color: '#5D4037',
-                                callback: function(value, index, values) {
-                                    return value.toLocaleString(); // Add commas
-                                }
-                            },
-                            grid: {
-                                color: '#D3CBB8', // Muted beige for grid
-                                drawBorder: false
-                            },
-                            title: {
-                                display: true,
-                                text: 'Players',
-                                color: '#5D4037'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#5D4037'
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Deadrails Data',
-                            color: '#5D4037',
-                            font: {
-                                size: 16
-                            }
-                        }
-                    }
-                }
-            });
         }
 
         // Ensure fetchDataAndPlot is called AFTER the DOM is fully loaded
