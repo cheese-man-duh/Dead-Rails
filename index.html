@@ -89,22 +89,22 @@
         const yTicksValueSpan = document.getElementById('yTicksValue');
         let myChart;
 
-        // Replace with your GitHub username and repository name
-        const githubUsername = 'cheese-man-duh';
-        const githubRepo = 'Dead-Rails';
-        const csvFileUrl = `https://raw.githubusercontent.com/${githubUsername}/${githubRepo}/main/Data.csv`;
+        // Corrected GitHub raw URL
+        const csvFileUrl = 'https://raw.githubusercontent.com/cheese-man-duh/Dead-Rails/main/Data.csv';
 
         async function fetchDataAndPlot() {
             try {
                 const response = await fetch(csvFileUrl);
                 const csvData = await response.text();
                 const parsedData = Papa.parse(csvData, { header: true, dynamicTyping: true }).data;
+                console.log("Parsed Data:", parsedData); // Debugging line
 
                 if (!parsedData || parsedData.length < 2) {
                     console.error("Not enough data to plot.");
                     return;
                 }
 
+                // Ensure 'Time' is parsed as Date objects and 'Count' as numbers
                 const timeData = parsedData.map(row => new Date(row.Time));
                 const countData = parsedData.map(row => row.Count);
 
